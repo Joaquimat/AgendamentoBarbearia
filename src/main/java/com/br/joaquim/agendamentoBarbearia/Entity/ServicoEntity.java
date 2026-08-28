@@ -23,4 +23,8 @@ public class ServicoEntity {
 
     @Column(nullable = false)
     private Integer duracao;
+
+    @ManyToOne
+    @JoinColumn(name = "agendamento_id")
+    private AgendamentoEntity agendamento;
 }
