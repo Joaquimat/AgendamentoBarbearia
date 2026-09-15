@@ -26,10 +26,6 @@ public class AgendamentoEntity {
     @Column(nullable = false)
     private LocalDateTime dataFim;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id")
-    private UsuariosEntity usuario;
-
     @OneToMany(mappedBy = "agendamento", cascade = CascadeType.ALL)
     private Set<ServicoEntity> servico = new HashSet<>();
 

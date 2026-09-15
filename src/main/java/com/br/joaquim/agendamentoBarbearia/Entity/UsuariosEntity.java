@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,6 +30,10 @@ public class UsuariosEntity implements UserDetails {
 
     @Column(nullable = false)
     private String senha;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "agendamento_id")
+    private AgendamentoEntity agendamento;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "alunos_roles",

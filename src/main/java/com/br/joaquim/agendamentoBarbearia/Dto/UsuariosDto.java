@@ -19,4 +19,7 @@ public class UsuariosDto {
     @NotNull
     private String email;
 
+    @NotNull
+    private String senha;
+
 }
