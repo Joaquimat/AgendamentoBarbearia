@@ -9,6 +9,9 @@ import com.br.joaquim.agendamentoBarbearia.exception.BadRequestException;
 import com.br.joaquim.agendamentoBarbearia.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +41,19 @@ public class UsuarioService {
             throw new BadRequestException("Agendamento não encontrado para o usuário");
         }
         return agendamento;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void deletarUsuario(Integer id) throws NotFoundException {
+        UsuariosEntity usuarios = usuariosRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
+
+        usuariosRepository.deleteById(id);
+
+        if (usuarios.getAgendamento() != null) {
+            agendamentoRepository.deleteById(usuarios.getAgendamento().getId());
+        }
+
     }
 
 

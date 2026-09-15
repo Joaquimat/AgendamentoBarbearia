@@ -1,11 +1,13 @@
 package com.br.joaquim.agendamentoBarbearia.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -28,5 +30,6 @@ public class AgendamentoEntity {
 
     @OneToMany(mappedBy = "agendamento", cascade = CascadeType.ALL)
     private Set<ServicoEntity> servico = new HashSet<>();
+
 
 }

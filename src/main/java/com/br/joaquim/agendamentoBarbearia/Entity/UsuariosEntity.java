@@ -31,7 +31,7 @@ public class UsuariosEntity implements UserDetails {
     @Column(nullable = false)
     private String senha;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "agendamento_id")
     private AgendamentoEntity agendamento;
 
