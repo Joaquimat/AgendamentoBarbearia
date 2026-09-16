@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "usuarios")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -31,13 +32,13 @@ public class UsuariosEntity implements UserDetails {
     @Column(nullable = false)
     private String senha;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "agendamento_id")
     private AgendamentoEntity agendamento;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "alunos_roles",
-            joinColumns = @JoinColumn(name = "aluno_id"),
+    @JoinTable(name = "usuarios_roles",
+            joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RolesEntity> roles = new HashSet<>();
 

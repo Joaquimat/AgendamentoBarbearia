@@ -3,7 +3,11 @@ package com.br.joaquim.agendamentoBarbearia.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
+@Table(name = "servico")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,7 +28,6 @@ public class ServicoEntity {
     @Column(nullable = false)
     private Integer duracao;
 
-    @ManyToOne
-    @JoinColumn(name = "agendamento_id")
-    private AgendamentoEntity agendamento;
+    @OneToMany(mappedBy = "servico", cascade = CascadeType.ALL)
+    private Set<AgendamentoEntity> agendamento = new HashSet<>();
 }

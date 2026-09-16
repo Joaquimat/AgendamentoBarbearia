@@ -1,9 +1,9 @@
 package com.br.joaquim.agendamentoBarbearia.Dto;
 
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -11,15 +11,14 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class UsuariosDto {
+public class AgendamentoDto {
 
     @NotNull
-    private String nome;
-
+    private String nomeCliente;
     @NotNull
-    private String email;
-
+    private Integer servicoId;
     @NotNull
-    private String senha;
-
+    private LocalDateTime dataInicio;
+    @NotNull
+    private LocalDateTime dataFim;
 }

@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Entity
+@Table(name = "agendamento")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,8 +29,9 @@ public class AgendamentoEntity {
     @Column(nullable = false)
     private LocalDateTime dataFim;
 
-    @OneToMany(mappedBy = "agendamento", cascade = CascadeType.ALL)
-    private Set<ServicoEntity> servico = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "servico_id")
+    private ServicoEntity servico;
 
 
 }
