@@ -47,9 +47,21 @@ public class AgendamentoService {
 
             agendamentoRepository.save(agendamento);
         }
-
-        }
-
     }
+    public List<AgendamentoDto> getAgendamentos() {
+
+
+        return agendamentoRepository.findAll().stream()
+                .map(agendamento -> AgendamentoDto.builder()
+                        .Id(agendamento.getId())
+                        .dataInicio(agendamento.getDataInicio())
+                        .dataFim(agendamento.getDataFim())
+                        .servicoId(agendamento.getServico().getId())
+                        .usuarioId(agendamento.getUsuario().getId())
+                        .build())
+                .toList();
+    }
+
+}
 
 
