@@ -1,11 +1,14 @@
 package com.br.joaquim.agendamentoBarbearia.service;
 
 import com.br.joaquim.agendamentoBarbearia.Dto.ServicoDto;
+import com.br.joaquim.agendamentoBarbearia.Entity.AgendamentoEntity;
 import com.br.joaquim.agendamentoBarbearia.Entity.ServicoEntity;
 import com.br.joaquim.agendamentoBarbearia.Repoaitory.IServicoRepository;
 import com.br.joaquim.agendamentoBarbearia.exception.BadRequestException;
+import com.br.joaquim.agendamentoBarbearia.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -40,5 +43,12 @@ public class ServicoService {
                         .valor(servico.getValor())
                         .build())
                 .toList();
+    }
+    @Transactional(rollbackFor = Exception.class)
+    public void deletarServico(Integer id) throws NotFoundException {
+        ServicoEntity agendamento = servicoRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Serviço não encontrado"));
+
+        servicoRepository.deleteById(id);
     }
 }
