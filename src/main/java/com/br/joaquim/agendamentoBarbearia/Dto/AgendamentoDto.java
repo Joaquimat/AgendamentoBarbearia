@@ -1,5 +1,6 @@
 package com.br.joaquim.agendamentoBarbearia.Dto;
 
+import com.br.joaquim.agendamentoBarbearia.Entity.ServicoEntity;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -16,6 +17,8 @@ public class AgendamentoDto {
     private Integer Id;
     @NotNull
     private Integer servicoId;
+    @NotNull
+    private Integer usuarioId;
     @NotNull
     private LocalDateTime dataInicio;
     @NotNull
