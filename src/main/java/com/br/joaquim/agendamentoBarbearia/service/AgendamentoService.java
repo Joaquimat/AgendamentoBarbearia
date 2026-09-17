@@ -63,6 +63,7 @@ public class AgendamentoService {
                         .build())
                 .toList();
     }
+
     @Transactional(rollbackFor = Exception.class)
     public void deletarAgendamento(Integer id) throws NotFoundException {
         AgendamentoEntity agendamento = agendamentoRepository.findById(id)
