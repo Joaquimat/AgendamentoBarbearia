@@ -33,5 +33,8 @@ public class AgendamentoEntity {
     @JoinColumn(name = "servico_id")
     private ServicoEntity servico;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private UsuariosEntity usuario;
 
 }

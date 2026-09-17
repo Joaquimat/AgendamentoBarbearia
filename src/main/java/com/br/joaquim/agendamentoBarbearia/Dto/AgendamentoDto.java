@@ -13,8 +13,7 @@ import java.time.LocalDateTime;
 @ToString
 public class AgendamentoDto {
 
-    @NotNull
-    private String nomeCliente;
+    private Integer Id;
     @NotNull
     private Integer servicoId;
     @NotNull

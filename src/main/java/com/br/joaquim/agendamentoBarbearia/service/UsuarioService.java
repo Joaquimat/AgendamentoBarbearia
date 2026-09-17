@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -33,10 +34,10 @@ public class UsuarioService {
                 .build());
     }
 
-    public AgendamentoEntity getUsuarioAgendamento(Integer id) throws NotFoundException {
+    public Set<AgendamentoEntity> getUsuarioAgendamentos(Integer id) throws NotFoundException {
         UsuariosEntity usuarios = usuariosRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
-        AgendamentoEntity agendamento = usuarios.getAgendamento();
+        Set<AgendamentoEntity> agendamento = usuarios.getAgendamentos();
         if (agendamento == null) {
             throw new BadRequestException("Agendamento não encontrado para o usuário");
         }
@@ -49,10 +50,6 @@ public class UsuarioService {
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
 
         usuariosRepository.deleteById(id);
-
-        if (usuarios.getAgendamento() != null) {
-            agendamentoRepository.deleteById(usuarios.getAgendamento().getId());
-        }
 
     }
 

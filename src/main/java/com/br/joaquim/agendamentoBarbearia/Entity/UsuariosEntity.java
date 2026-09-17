@@ -32,9 +32,8 @@ public class UsuariosEntity implements UserDetails {
     @Column(nullable = false)
     private String senha;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "agendamento_id")
-    private AgendamentoEntity agendamento;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Set<AgendamentoEntity> agendamentos = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuarios_roles",
