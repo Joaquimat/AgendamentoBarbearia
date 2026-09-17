@@ -48,6 +48,7 @@ public class AgendamentoService {
             agendamentoRepository.save(agendamento);
         }
     }
+
     public List<AgendamentoDto> getAgendamentos() {
 
 
