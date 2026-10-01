@@ -2,6 +2,7 @@ package com.br.joaquim.agendamentoBarbearia.controller;
 
 import com.br.joaquim.agendamentoBarbearia.Dto.LoginRequestDto;
 import com.br.joaquim.agendamentoBarbearia.Dto.RegisterRequestDto;
+import com.br.joaquim.agendamentoBarbearia.Dto.TokenResponseDto;
 import com.br.joaquim.agendamentoBarbearia.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,8 @@ public class AuthController {
 
     }
     @PostMapping("/login")
-    public void login(@RequestBody @Valid LoginRequestDto LoginRequestDto)throws Exception {
-        authenticationService.login(LoginRequestDto);
+    public TokenResponseDto login(@RequestBody @Valid LoginRequestDto LoginRequestDto)throws Exception {
+        return authenticationService.login(LoginRequestDto);
 
     }
 }
