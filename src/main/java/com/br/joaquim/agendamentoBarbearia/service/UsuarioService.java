@@ -30,7 +30,6 @@ public class UsuarioService {
         usuariosRepository.save(UsuariosEntity.builder()
                 .nome(usuariosDto.getNome())
                 .email(usuariosDto.getEmail())
-                .senha(usuariosDto.getSenha())
                 .build());
     }
 
