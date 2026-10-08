@@ -1,5 +1,6 @@
 package com.br.joaquim.agendamentoBarbearia.controller;
 
+import com.br.joaquim.agendamentoBarbearia.Dto.AgendamentoDto;
 import com.br.joaquim.agendamentoBarbearia.Dto.UsuariosDto;
 import com.br.joaquim.agendamentoBarbearia.exception.BadRequestException;
 import com.br.joaquim.agendamentoBarbearia.exception.NotFoundException;
@@ -8,6 +9,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/brb/usuarios")
@@ -24,8 +27,8 @@ public class UsuarioController {
 
     @GetMapping("/{id}/agendamentos")
     @ResponseStatus(HttpStatus.OK)
-    public void getUsuarioAgendamentos(@PathVariable Integer id)throws NotFoundException, BadRequestException {
-        usuarioService.getUsuarioAgendamentos(id);
+    public List<AgendamentoDto> getUsuarioAgendamentos(@PathVariable Integer id)throws NotFoundException, BadRequestException {
+       return usuarioService.getUsuarioAgendamentos(id);
     }
 
     @DeleteMapping("/{id}")

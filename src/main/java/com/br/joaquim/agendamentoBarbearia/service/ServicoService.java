@@ -35,6 +35,7 @@ public class ServicoService {
 
         return servicoRepository.findAll().stream()
                 .map(servico -> ServicoDto.builder()
+                        .id(servico.getId())
                         .nome(servico.getNome())
                         .duracao(servico.getDuracao())
                         .valor(servico.getValor())

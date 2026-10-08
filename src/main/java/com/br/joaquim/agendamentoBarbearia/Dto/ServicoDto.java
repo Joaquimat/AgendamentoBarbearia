@@ -12,6 +12,9 @@ import lombok.*;
 public class ServicoDto {
 
     @NotNull
+    private Integer id;
+
+    @NotNull
     private String nome;
 
     @NotNull

@@ -1,5 +1,6 @@
 package com.br.joaquim.agendamentoBarbearia.service;
 
+import com.br.joaquim.agendamentoBarbearia.Dto.AgendamentoDto;
 import com.br.joaquim.agendamentoBarbearia.Dto.UsuariosDto;
 import com.br.joaquim.agendamentoBarbearia.Entity.AgendamentoEntity;
 import com.br.joaquim.agendamentoBarbearia.Entity.UsuariosEntity;
@@ -30,17 +31,24 @@ public class UsuarioService {
         usuariosRepository.save(UsuariosEntity.builder()
                 .nome(usuariosDto.getNome())
                 .email(usuariosDto.getEmail())
+                .senha(usuariosDto.getSenha())
                 .build());
     }
 
-    public Set<AgendamentoEntity> getUsuarioAgendamentos(Integer id) throws NotFoundException {
+    @Transactional(readOnly = true)
+    public List<AgendamentoDto> getUsuarioAgendamentos(Integer id) throws NotFoundException {
         UsuariosEntity usuarios = usuariosRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
-        Set<AgendamentoEntity> agendamento = usuarios.getAgendamentos();
-        if (agendamento == null) {
-            throw new BadRequestException("Agendamento não encontrado para o usuário");
-        }
-        return agendamento;
+
+        return usuarios.getAgendamentos().stream()
+                .map(agendamento -> AgendamentoDto.builder()
+                        .Id(agendamento.getId())
+                        .usuarioId(agendamento.getUsuario().getId())
+                        .servicoId(agendamento.getServico().getId())
+                        .dataInicio(agendamento.getDataInicio())
+                        .dataFim(agendamento.getDataFim())
+                        .build())
+                .toList();
     }
 
     @Transactional(rollbackFor = Exception.class)
