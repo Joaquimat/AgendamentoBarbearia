@@ -17,7 +17,7 @@ public class AgendamentoDto {
     private Integer Id;
     @NotNull
     private Integer servicoId;
-    @NotNull
+
     private Integer usuarioId;
     @NotNull
     private LocalDateTime dataInicio;

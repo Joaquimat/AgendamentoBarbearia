@@ -19,21 +19,34 @@ public class AgendamentoController {
 
 
     private final AgendamentoService agendamentoService;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarAgendamento(@Valid @RequestBody AgendamentoDto agendamentoDto)throws BadRequestException, NotFoundException {
+    public void criarAgendamento(@Valid @RequestBody AgendamentoDto agendamentoDto) throws BadRequestException, NotFoundException {
         agendamentoService.criarAgendamento(agendamentoDto);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<AgendamentoDto> getAgendamentos()throws NotFoundException, BadRequestException {
+    public List<AgendamentoDto> getAgendamentos() throws NotFoundException, BadRequestException {
         return agendamentoService.getAgendamentos();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<AgendamentoDto> getUsuarioAgendamentos(@PathVariable Integer id) throws NotFoundException, BadRequestException {
+        return agendamentoService.getUsuarioAgendamentos(id);
+    }
+
+    @GetMapping("/usuario")
+    @ResponseStatus(HttpStatus.OK)
+    public List<AgendamentoDto> getMeusAgendamentos() throws NotFoundException, BadRequestException {
+        return agendamentoService.getMeusAgendamentos();
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletarAgendamento(@PathVariable Integer id)throws NotFoundException, BadRequestException {
-       agendamentoService.deletarAgendamento(id);
+    public void deletarAgendamento(@PathVariable Integer id) throws NotFoundException, BadRequestException {
+        agendamentoService.deletarAgendamento(id);
     }
 }

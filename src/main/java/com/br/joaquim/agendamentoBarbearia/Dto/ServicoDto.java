@@ -11,7 +11,7 @@ import lombok.*;
 @ToString
 public class ServicoDto {
 
-    @NotNull
+
     private Integer id;
 
     @NotNull

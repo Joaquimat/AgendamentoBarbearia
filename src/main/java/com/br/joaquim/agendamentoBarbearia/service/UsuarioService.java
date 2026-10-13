@@ -35,21 +35,6 @@ public class UsuarioService {
                 .build());
     }
 
-    @Transactional(readOnly = true)
-    public List<AgendamentoDto> getUsuarioAgendamentos(Integer id) throws NotFoundException {
-        UsuariosEntity usuarios = usuariosRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
-
-        return usuarios.getAgendamentos().stream()
-                .map(agendamento -> AgendamentoDto.builder()
-                        .Id(agendamento.getId())
-                        .usuarioId(agendamento.getUsuario().getId())
-                        .servicoId(agendamento.getServico().getId())
-                        .dataInicio(agendamento.getDataInicio())
-                        .dataFim(agendamento.getDataFim())
-                        .build())
-                .toList();
-    }
 
     @Transactional(rollbackFor = Exception.class)
     public void deletarUsuario(Integer id) throws NotFoundException {

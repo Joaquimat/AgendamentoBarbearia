@@ -25,11 +25,6 @@ public class UsuarioController {
         usuarioService.criarUsuario(usuariosDto);
     }
 
-    @GetMapping("/{id}/agendamentos")
-    @ResponseStatus(HttpStatus.OK)
-    public List<AgendamentoDto> getUsuarioAgendamentos(@PathVariable Integer id)throws NotFoundException, BadRequestException {
-       return usuarioService.getUsuarioAgendamentos(id);
-    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
