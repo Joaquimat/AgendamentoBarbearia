@@ -23,7 +23,7 @@ public class ServicoController {
     public void criarServico(@Valid @RequestBody ServicoDto servicoDto)throws BadRequestException, NotFoundException {
         servicoService.criarServico(servicoDto);
     }
-    @GetMapping("/{id}")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ServicoDto> getServicos()throws NotFoundException, BadRequestException {
         return servicoService.getServicos();
