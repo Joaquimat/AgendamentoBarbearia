@@ -95,6 +95,7 @@ public class AgendamentoService {
                 .map(agendamento -> AgendamentoDto.builder()
                         .Id(agendamento.getId())
                         .servicoId(agendamento.getServico().getId())
+                        .usuarioId(agendamento.getUsuario().getId())
                         .dataInicio(agendamento.getDataInicio())
                         .dataFim(agendamento.getDataFim())
                         .build())

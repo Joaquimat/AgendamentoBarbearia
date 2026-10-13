@@ -8,6 +8,7 @@ import com.br.joaquim.agendamentoBarbearia.service.AgendamentoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,12 +27,14 @@ public class AgendamentoController {
         agendamentoService.criarAgendamento(agendamentoDto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<AgendamentoDto> getAgendamentos() throws NotFoundException, BadRequestException {
         return agendamentoService.getAgendamentos();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public List<AgendamentoDto> getUsuarioAgendamentos(@PathVariable Integer id) throws NotFoundException, BadRequestException {
@@ -44,6 +47,7 @@ public class AgendamentoController {
         return agendamentoService.getMeusAgendamentos();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletarAgendamento(@PathVariable Integer id) throws NotFoundException, BadRequestException {

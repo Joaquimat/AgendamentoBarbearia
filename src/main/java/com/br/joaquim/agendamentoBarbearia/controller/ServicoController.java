@@ -7,6 +7,7 @@ import com.br.joaquim.agendamentoBarbearia.service.ServicoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,17 +19,20 @@ public class ServicoController {
 
     private final ServicoService servicoService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void criarServico(@Valid @RequestBody ServicoDto servicoDto)throws BadRequestException, NotFoundException {
         servicoService.criarServico(servicoDto);
     }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ServicoDto> getServicos()throws NotFoundException, BadRequestException {
         return servicoService.getServicos();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletarServico(@PathVariable Integer id)throws NotFoundException, BadRequestException {
