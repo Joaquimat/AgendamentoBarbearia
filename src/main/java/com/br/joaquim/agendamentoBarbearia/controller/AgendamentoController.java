@@ -1,6 +1,7 @@
 package com.br.joaquim.agendamentoBarbearia.controller;
 
 import com.br.joaquim.agendamentoBarbearia.Dto.AgendamentoDto;
+import com.br.joaquim.agendamentoBarbearia.Dto.CriarAgendamentoDto;
 import com.br.joaquim.agendamentoBarbearia.Dto.ServicoDto;
 import com.br.joaquim.agendamentoBarbearia.exception.BadRequestException;
 import com.br.joaquim.agendamentoBarbearia.exception.NotFoundException;
@@ -23,8 +24,8 @@ public class AgendamentoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarAgendamento(@Valid @RequestBody AgendamentoDto agendamentoDto) throws BadRequestException, NotFoundException {
-        agendamentoService.criarAgendamento(agendamentoDto);
+    public void criarAgendamento(@Valid @RequestBody CriarAgendamentoDto criarAgendamentoDto) throws BadRequestException, NotFoundException {
+        agendamentoService.criarAgendamento(criarAgendamentoDto);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

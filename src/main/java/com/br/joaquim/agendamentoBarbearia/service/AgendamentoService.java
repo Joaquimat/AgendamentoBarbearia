@@ -1,6 +1,7 @@
 package com.br.joaquim.agendamentoBarbearia.service;
 
 import com.br.joaquim.agendamentoBarbearia.Dto.AgendamentoDto;
+import com.br.joaquim.agendamentoBarbearia.Dto.CriarAgendamentoDto;
 import com.br.joaquim.agendamentoBarbearia.Entity.AgendamentoEntity;
 import com.br.joaquim.agendamentoBarbearia.Entity.ServicoEntity;
 import com.br.joaquim.agendamentoBarbearia.Entity.UsuariosEntity;
@@ -14,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,7 +27,15 @@ public class AgendamentoService {
     private final IUsuariosRepository usuariosRepository;
 
 
-    public void criarAgendamento(AgendamentoDto agendamentoDto) throws NotFoundException {
+    @Transactional
+    public void criarAgendamento(CriarAgendamentoDto agendamentoDto) throws NotFoundException {
+
+        if (agendamentoDto.getDataInicio() == null) {
+            throw new BadRequestException("Data de início é obrigatória");
+        }
+        if (agendamentoDto.getDataInicio().isBefore(LocalDateTime.now())) {
+            throw new BadRequestException("Não é possível agendar no passado");
+        }
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -35,24 +45,24 @@ public class AgendamentoService {
         UsuariosEntity usuario = usuariosRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
 
-        List<AgendamentoEntity> conflitos = agendamentoRepository.findByDataInicioLessThanAndDataFimGreaterThan(
-                agendamentoDto.getDataFim(),
-                agendamentoDto.getDataInicio());
+        LocalDateTime dataInicio = agendamentoDto.getDataInicio();
+        LocalDateTime dataFim = dataInicio.plusMinutes(servico.getDuracao());
+
+        List<AgendamentoEntity> conflitos = agendamentoRepository
+                .findByDataInicioLessThanAndDataFimGreaterThan(dataFim, dataInicio);
 
         if (!conflitos.isEmpty()) {
             throw new BadRequestException("Horário indisponível para agendamento");
-        } else {
-
-
-            AgendamentoEntity agendamento = AgendamentoEntity.builder()
-                    .usuario(usuario)
-                    .servico(servico)
-                    .dataInicio(agendamentoDto.getDataInicio())
-                    .dataFim(agendamentoDto.getDataFim())
-                    .build();
-
-            agendamentoRepository.save(agendamento);
         }
+
+        AgendamentoEntity agendamento = AgendamentoEntity.builder()
+                .usuario(usuario)
+                .servico(servico)
+                .dataInicio(dataInicio)
+                .dataFim(dataFim)
+                .build();
+
+        agendamentoRepository.save(agendamento);
     }
 
     @Transactional(readOnly = true)
