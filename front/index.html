@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tecnobelo - Agendamentos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="faixa"></div>
+
+  <header>
+    <h1>Barbearia Tecnobelo <span id="selo-admin" class="selo escondido">Administrador</span></h1>
+    <button id="btn-sair" class="secundario escondido">Sair</button>
+  </header>
+
+  <p id="mensagem" class="mensagem escondido"></p>
+
+  <main>
+    <!-- TELA DE LOGIN / CADASTRO -->
+    <section id="tela-login" class="caixa pequena">
+      <h2 id="titulo-login">Entrar</h2>
+
+      <div id="campo-nome" class="escondido">
+        <label for="nome">Nome</label>
+        <input id="nome" type="text">
+      </div>
+
+      <label for="email">E-mail</label>
+      <input id="email" type="email">
+
+      <label for="senha">Senha</label>
+      <input id="senha" type="password">
+
+      <button id="btn-login">Entrar</button>
+      <p class="trocar">
+        <span id="texto-trocar">Ainda não tem conta?</span>
+        <a href="#" id="link-trocar">Cadastre-se</a>
+      </p>
+    </section>
+
+    <!-- TELA PRINCIPAL (só aparece depois do login) -->
+    <section id="tela-app" class="escondido">
+      <div class="colunas">
+
+        <div class="caixa">
+          <h2>Novo agendamento</h2>
+          <label for="servico">Serviço</label>
+          <select id="servico"></select>
+
+          <label for="data-inicio">Data e hora</label>
+          <input id="data-inicio" type="datetime-local">
+
+          <p id="resumo" class="resumo"></p>
+          <button id="btn-agendar">Agendar</button>
+        </div>
+
+        <div class="caixa">
+          <h2>Meus agendamentos</h2>
+          <table>
+            <thead>
+              <tr><th>Serviço</th><th>Início</th><th>Fim</th><th></th></tr>
+            </thead>
+            <tbody id="lista-agendamentos"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SÓ PARA ADMIN: todos os agendamentos -->
+      <div id="caixa-todos" class="caixa escondido">
+        <h2>Todos os agendamentos</h2>
+        <table>
+          <thead>
+            <tr><th>Cliente</th><th>Serviço</th><th>Início</th><th>Fim</th><th></th></tr>
+          </thead>
+          <tbody id="lista-todos"></tbody>
+        </table>
+      </div>
+
+      <!-- SÓ PARA ADMIN: gerenciar serviços -->
+      <div id="caixa-servicos" class="caixa escondido">
+        <h2>Gerenciar serviços</h2>
+        <table>
+          <thead>
+            <tr><th>Nome</th><th>Duração</th><th>Valor</th><th></th></tr>
+          </thead>
+          <tbody id="lista-servicos"></tbody>
+        </table>
+
+        <h3>Cadastrar serviço</h3>
+        <div class="linha">
+          <input id="s-nome" type="text" placeholder="Nome (ex: Corte)">
+          <input id="s-duracao" type="number" min="1" placeholder="Duração (min)">
+          <input id="s-valor" type="number" min="0" step="0.01" placeholder="Valor (R$)">
+          <button id="btn-add-servico">Adicionar</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

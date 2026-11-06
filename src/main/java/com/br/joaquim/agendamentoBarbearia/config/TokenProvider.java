@@ -1,5 +1,6 @@
 package com.br.joaquim.agendamentoBarbearia.config;
 
+import com.br.joaquim.agendamentoBarbearia.Entity.UsuariosEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -50,8 +51,10 @@ public class TokenProvider {
     private String buildToken(String username) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expirationTime);
+        UsuariosEntity usuarios = new UsuariosEntity();
         return Jwts.builder()
                 .subject(username)
+                .claim("role",usuarios.getRoles())
                 .issuedAt(now)
                 .expiration(expiryDate)
                 .signWith(getSigningKey())
